@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/static/css/main.65eb8342.css",
+    "main.js": "/static/js/main.c6a30d85.js",
+    "static/media/background.png": "/static/media/background.0b7c967e229ca50292e1.png",
+    "static/media/robo_404.png": "/static/media/robo_404.ae3a6d303b037496e786.png",
+    "static/media/sgp_logo_horizontal.png": "/static/media/sgp_logo_horizontal.ce31ebcbe86b5b027836.png",
+    "static/media/treina_recife_miniatura.png": "/static/media/treina_recife_miniatura.0f811d360ae52748b624.png",
+    "static/media/sgp_logo_vertical.png": "/static/media/sgp_logo_vertical.2e009720da822231d2dd.png",
+    "index.html": "/index.html",
+    "main.65eb8342.css.map": "/static/css/main.65eb8342.css.map",
+    "main.c6a30d85.js.map": "/static/js/main.c6a30d85.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.65eb8342.css",
+    "static/js/main.c6a30d85.js"
+  ]
+}
