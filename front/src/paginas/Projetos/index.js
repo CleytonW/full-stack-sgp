@@ -3,6 +3,7 @@ import Cabecalho from "../../componentes/Cabecalho";
 import Rodape from "../../componentes/Rodape";
 import { useEffect, useState } from "react";
 import { listarProjetos } from "../../servicos/projetos";
+import { format, parseISO } from "date-fns";
 
 function Projetos() {
   const navigate = useNavigate();
@@ -37,6 +38,9 @@ function Projetos() {
             <tr>
               <th>ID</th>
               <th>Nome</th>
+              <th>Data de Criação</th>
+              <th>Data de Conclusão</th>
+              <th>Status</th>
               <th>Descrição</th>
               <th>Responsável</th>
               <th>Opções</th>
@@ -47,6 +51,9 @@ function Projetos() {
               <tr key={projeto.id}>
                 <td>{projeto.id}</td>
                 <td>{projeto.nome}</td>
+                <td>{projeto.dataCriacao ? format(parseISO(projeto.dataCriacao), 'dd/MM/yyyy') : '-'}</td>
+                <td>{projeto.dataConclusao ? format(parseISO(projeto.dataConclusao), 'dd/MM/yyyy') : '-'}</td>
+                <td>{projeto.status}</td>
                 <td>{projeto.descricao}</td>
                 <td>{projeto.responsavel.nome}</td>
                 <td>

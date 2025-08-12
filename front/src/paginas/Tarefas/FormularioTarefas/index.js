@@ -19,7 +19,7 @@ function FormularioTarefas() {
         setDataConclusao,
         setPrioridade,
         setStatus,
-        setProjeto
+        (projeto) => setProjetoId(projeto.id)
       );
     }
     listarUsuarios(setUsuarios);
@@ -32,7 +32,7 @@ function FormularioTarefas() {
   const [atribuirPara, setAtribuirPara] = useState("");
   const [prioridade, setPrioridade] = useState("");
   const [status, setStatus] = useState("");
-  const [projeto, setProjeto] = useState("");
+  const [projetoId, setProjetoId] = useState("");
 
   const enviarFormulario = async (e) => {
     e.preventDefault();
@@ -42,7 +42,7 @@ function FormularioTarefas() {
       dataConclusao,
       prioridade,
       status,
-      projeto,
+      projeto: projetoId ? { id: projetoId } : null
     };
 
     if (id) {
@@ -70,10 +70,10 @@ function FormularioTarefas() {
             <input
               type="text"
               className="form-control"
-              id="projeto"
+              id="titulo"
               placeholder="Digite o título da tarefa"
-              value={projeto}
-              onChange={(e) => setProjeto(e.target.value)}
+              value={titulo}
+              onChange={(e) => setTitulo(e.target.value)}
               required
             />
           </div>
@@ -172,8 +172,8 @@ function FormularioTarefas() {
             <select
               id="projeto"
               className="form-select"
-              value={projeto}
-              onChange={(e) => setProjeto(e.target.value)}
+              value={projetoId}
+              onChange={(e) => setProjetoId(Number(e.target.value))}
               required
             >
               <option disabled value="">

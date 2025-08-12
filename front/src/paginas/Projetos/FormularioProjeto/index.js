@@ -3,18 +3,32 @@ import { listarUsuarios } from "../../../servicos/usuarios";
 import Cabecalho from "../../../componentes/Cabecalho";
 import Rodape from "../../../componentes/Rodape";
 import { useNavigate, useParams } from "react-router-dom";
-import { atualizarProjeto, buscarProjetoPeloId, cadastrarProjeto } from "../../../servicos/projetos";
+import {
+  atualizarProjeto,
+  buscarProjetoPeloId,
+  cadastrarProjeto,
+} from "../../../servicos/projetos";
 
 function FormularioProjeto() {
   const { id } = useParams();
   useEffect(() => {
     if (id) {
-      buscarProjetoPeloId(id, setNome, setDescricao, setResponsavel);
+      buscarProjetoPeloId(
+        id,
+        setNome,
+        setDataCriacao,
+        setDataConclusao,
+        setDescricao,
+        setResponsavel
+      );
     }
     listarUsuarios(setUsuarios);
   }, [id]);
 
   const [nome, setNome] = useState("");
+  const [dataCriacao, setDataCriacao] = useState("");
+  const [dataConclusao, setDataConclusao] = useState("");
+  const [status, setStatus] = useState("");
   const [descricao, setDescricao] = useState("");
   const [responsavel, setResponsavel] = useState("");
   const [usuarios, setUsuarios] = useState([]);
@@ -24,9 +38,12 @@ function FormularioProjeto() {
     const dataCriacao = new Date().toISOString().slice(0, 10);
     const projeto = {
       nome,
+      dataCriacao,
+      dataConclusao,
+      status,
       descricao,
       responsavel: responsavel ? { id: Number(responsavel) } : undefined,
-      dataCriacao
+      dataCriacao,
     };
 
     if (id) {
@@ -34,7 +51,7 @@ function FormularioProjeto() {
     } else {
       await cadastrarProjeto(projeto, navigate);
     }
-  }
+  };
 
   const navigate = useNavigate();
 
@@ -42,10 +59,9 @@ function FormularioProjeto() {
     navigate("/projetos");
   };
 
-
   return (
     <>
-      <Cabecalho /> 
+      <Cabecalho />
       <section className="container mt-3" id="novo-projeto">
         <h1>Dados do Projeto</h1>
         <form className="row g-3" onSubmit={enviarFormulario}>
@@ -62,6 +78,50 @@ function FormularioProjeto() {
               onChange={(e) => setNome(e.target.value)}
               required
             />
+          </div>
+          <div className="col-md-4 col-12">
+            <label htmlFor="dataCriacao" className="form-label">
+              Data de Criação
+            </label>
+            <input
+              type="date"
+              className="form-control"
+              id="dataCriacao"
+              value={dataCriacao}
+              onChange={(e) => setDataCriacao(e.target.value)}
+              required
+            />
+          </div>
+          <div className="col-md-4 col-12">
+            <label htmlFor="dataConclusao" className="form-label">
+              Data de Conclusão
+            </label>
+            <input
+              type="date"
+              className="form-control"
+              id="dataConclusao"
+              value={dataConclusao}
+              onChange={(e) => setDataConclusao(e.target.value)}
+            />
+          </div>
+          <div className="col-md-4 col-12">
+            <label htmlFor="status" className="form-label">
+              Status:
+            </label>
+            <select
+              id="status"
+              className="form-select"
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
+              required
+            >
+              <option disabled value="">
+                Escolha uma opção...
+              </option>
+              <option value={"ATIVO"}>Ativo</option>
+              <option value={"CONCLUIDO"}>Concluido</option>
+              <option value={"CANCELADO"}>Cancelado</option>
+            </select>
           </div>
           <div className="col-md-12">
             <label htmlFor="descricao" className="form-label">
@@ -92,7 +152,9 @@ function FormularioProjeto() {
                 Escolha um usuário...
               </option>
               {usuarios.length === 0 ? (
-                <option disabled value="">Nenhum usuário cadastrado</option>
+                <option disabled value="">
+                  Nenhum usuário cadastrado
+                </option>
               ) : (
                 usuarios.map((usuario) => (
                   <option key={usuario.id} value={usuario.id}>
@@ -106,7 +168,10 @@ function FormularioProjeto() {
             <button type="submit" className="btn btn-primary">
               Salvar
             </button>
-            <button className="btn btn-outline-primary ms-2" onClick={cancelarFormulario}>
+            <button
+              className="btn btn-outline-primary ms-2"
+              onClick={cancelarFormulario}
+            >
               Cancelar
             </button>
           </div>

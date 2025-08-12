@@ -3,7 +3,7 @@ import { api } from "./api";
 export async function listarTarefas(setTarefas) {
   await api
     .get("/tarefas")
-    .then((response) => setTarefas(response.data.content))
+    .then((response) => setTarefas(response.data))
     .catch((error) => console.error(error));
 }
 

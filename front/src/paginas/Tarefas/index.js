@@ -4,6 +4,7 @@ import Rodape from "../../componentes/Rodape";
 import { useEffect, useState } from "react";
 import { deletarUsuario } from "../../servicos/usuarios";
 import { listarTarefas } from "../../servicos/tarefas";
+import { format, parseISO } from "date-fns";
 
 function Tarefas() {
   const navigate = useNavigate();
@@ -54,15 +55,15 @@ function Tarefas() {
             </tr>
           </thead>
           <tbody>
-            {tarefas.map((tarefa) => (
+            {(tarefas || []).map((tarefa) => (
               <tr key={tarefa.id}>
                 <td>{tarefa.id}</td>
                 <td>{tarefa.titulo}</td>
-                <td>{tarefa.dataCriacao}</td>
-                <td>{tarefa.dataConclusao}</td>
+                <td>{tarefa.dataCriacao ? format(parseISO(tarefa.dataCriacao), 'dd/MM/yyyy') : '-'}</td>
+                <td>{tarefa.dataConclusao ? format(parseISO(tarefa.dataConclusao), 'dd/MM/yyyy') : '-'}</td>
                 <td>{tarefa.prioridade}</td>
                 <td>{tarefa.status}</td>
-                <td>{tarefa.projeto.nome}</td>
+                <td>{tarefa.projeto?.id || '-'}</td>
                 <td>
                   <div className="btn-group">
                     <button
