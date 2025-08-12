@@ -43,7 +43,6 @@ function FormularioProjeto() {
       status,
       descricao,
       responsavel: responsavel ? { id: Number(responsavel) } : undefined,
-      dataCriacao,
     };
 
     if (id) {
